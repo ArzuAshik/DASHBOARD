@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { dbConnectionError, dbConnectionSuccess, resetDB } from '../db/dbSlice';
+import { dbConnectionError, dbConnectionSuccess } from '../db/dbSlice';
 
 export const apiSlice = createApi({
     reducerPath: "api",
@@ -15,7 +15,7 @@ export const apiSlice = createApi({
                 body: dbName,
             }),
             onQueryStarted: async (arg, { dispatch, queryFulfilled }) => {
-                dispatch(resetDB());
+                // dispatch(resetDB());
                 try {
                     await queryFulfilled
                     dispatch(dbConnectionSuccess(arg));

@@ -13,7 +13,7 @@ export default function AppLayout({ children }) {
     handleSetDB(connectedDB);
   }, []);
 
-  if (isLoading || !connectedTo) {
+  if (!connectedTo) {
     return (
       <div
         style={{
@@ -23,12 +23,12 @@ export default function AppLayout({ children }) {
           minHeight: "100vh",
         }}
       >
-        <h1 style={{ fontSize: "5vw" }}>Loading...</h1>
+        <h1 style={{ fontSize: "3vw" }}>Connecting to the Database...</h1>
       </div>
     );
   }
 
-  if (isError) {
+  if (isError && !isLoading) {
     return <div>Error</div>;
   }
 
