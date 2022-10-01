@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { useSetDatabaseMutation } from "../redux/features/api/apiSlice";
 
 export default function SelectDB() {
-  const { connectedTo = "db1" } = useSelector((state) => state.db);
-  const [value, setValue] = useState("db1");
+  const { connectedTo } = useSelector((state) => state.db);
+  const [value, setValue] = useState("");
   const [handleSetDB, { isLoading }] = useSetDatabaseMutation();
 
   const handleChange = (e) => {
@@ -13,7 +13,7 @@ export default function SelectDB() {
   };
 
   useEffect(() => {
-    if (value === connectedTo) return;
+    if (!connectedTo || value === connectedTo) return;
     setValue(connectedTo);
   }, [connectedTo]);
 
@@ -24,6 +24,7 @@ export default function SelectDB() {
       style={{ padding: "5px 20px", margin: "0px 10px" }}
       value={value}
     >
+      {isLoading && <option value="">Loading...</option>}
       <option value="db1">DB1</option>
       <option value="db2">DB2</option>
       <option value="db3">DB3</option>
